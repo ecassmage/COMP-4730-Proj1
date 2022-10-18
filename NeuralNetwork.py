@@ -6,6 +6,7 @@ from tensorflow.keras.datasets import mnist
 
 class Network:
     def __init__(self, **kwargs):
+        # kwargs spreads the values out across all of these.
         self.training_datasets = list(kwargs['training_data'])
         self.testing_datasets = list(kwargs['testing_data'])
         self.metrics = kwargs['metrics']
@@ -27,6 +28,11 @@ class Network:
         self.model.compile(loss=self.loss, metrics=self.metrics, **kwargs.get('compile', {}))
 
     def run(self):
+        """
+        Will run the training for here. It will the assign the history of the tests out.
+        the self.get_history() can then be called after to better read the loss and accuracy over the training.
+        
+        """
         self.history = self.model.fit(
             *self.training_datasets,
             batch_size=self.batch_size,
